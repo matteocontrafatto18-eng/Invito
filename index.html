@@ -1,100 +1,125 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Un invito per te ✨</title>
-  <style>
-    :root { --bg1:#ffdde1; --bg2:#ee9ca7; --card:#ffffffcc; --txt:#2b2b2b; }
-    body{
-      margin:0; min-height:100vh; display:grid; place-items:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(circle at 20% 10%, #fff 0, transparent 35%),
-                  linear-gradient(135deg, var(--bg1), var(--bg2));
-      color:var(--txt);
-    }
-    .card{
-      width:min(720px, 92vw);
-      background:var(--card);
-      backdrop-filter: blur(10px);
-      border:1px solid #ffffff66;
-      border-radius:22px;
-      padding:28px 24px;
-      box-shadow: 0 18px 50px #00000022;
-      text-align:center;
-    }
-    h1{ margin:6px 0 10px; font-size: clamp(28px, 4vw, 40px); }
-    p{ margin:8px 0; font-size: clamp(16px, 2.2vw, 18px); line-height:1.5; }
-    .date{ font-weight:600; }
-    .buttons{ margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    button{
-      border:0; border-radius:999px; padding:12px 18px;
-      font-size:16px; cursor:pointer;
-      box-shadow: 0 10px 25px #0000001a;
-    }
-    .yes{ background:#111; color:#fff; }
-    .maybe{ background:#fff; color:#111; border:1px solid #00000012; }
-    .footer{ margin-top:14px; font-size:14px; opacity:.8; }
-    #reply{ margin-top:14px; font-weight:600; }
-    a{ color:inherit; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Una sorpresa per te 💛</title>
+
+<style>
+  body{
+    margin:0;
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: linear-gradient(135deg,#1d2b64,#f8cdda);
+    color:#fff;
+  }
+  .card{
+    width:min(720px,92vw);
+    background:#00000055;
+    backdrop-filter: blur(12px);
+    border-radius:24px;
+    padding:32px 26px;
+    text-align:center;
+    box-shadow:0 20px 50px #00000055;
+  }
+  h1{font-size:clamp(28px,4vw,40px);}
+  p{font-size:18px; line-height:1.5;}
+  button{
+    margin-top:18px;
+    padding:12px 22px;
+    border-radius:999px;
+    border:0;
+    font-size:16px;
+    cursor:pointer;
+  }
+  .primary{background:#fff;color:#111;}
+  .hidden{display:none;}
+  input{
+    padding:10px;
+    border-radius:10px;
+    border:0;
+    font-size:18px;
+    text-align:center;
+    width:120px;
+    margin-top:10px;
+  }
+  .error{color:#ffd1d1;margin-top:10px;}
+  .success{
+    animation: fadeIn 1.2s ease forwards;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:none;}
+  }
+</style>
 </head>
+
 <body>
-  <main class="card">
-    <div style="font-size:34px">🌙💛</div>
-    <h1>Ciao <span id="name">Amore</span>,</h1>
+<div class="card">
 
-    <p>ho una piccola proposta semplice:</p>
-    <p class="date">venerdì sera, ore 20:30</p>
-    <p>una cena (o una passeggiata) e poi un posto speciale.<br/>
-      Niente fretta, solo noi.</p>
+  <!-- INTRO -->
+  <div id="intro">
+    <h1>Ciao amore 💛</h1>
+    <p>
+      Ho preparato qualcosa di speciale per noi.<br>
+      Non è un posto qualunque…<br>
+      ma potrai scoprirlo solo se sei tu 🥰
+    </p>
+    <button class="primary" onclick="showAccess()">Accedi</button>
+  </div>
 
-    <p>Ti va?</p>
+  <!-- ACCESSO -->
+  <div id="access" class="hidden">
+    <p>Inserisci la sequenza segreta 🔐</p>
+    <input type="password" id="code" placeholder="••••">
+    <br>
+    <button class="primary" onclick="checkCode()">Scopri</button>
+    <div id="msg" class="error"></div>
+  </div>
 
-    <div class="buttons">
-      <button class="yes" id="btnYes">Sì, con te ✨</button>
-      <button class="maybe" id="btnMaybe">Ci penso (ma mi piace) 🙂</button>
-    </div>
+  <!-- SORPRESA -->
+  <div id="surprise" class="hidden success">
+    <h1>✨ È una fuga per noi ✨</h1>
+    <p>
+      Una casa immersa nella natura 🌲<br>
+      solo silenzio, tempo lento e noi due.
+    </p>
+    <p>
+      🫧 <strong>Jacuzzi calda</strong><br>
+      🔥 <strong>Sauna privata</strong><br>
+      🌙 stelle sopra di noi
+    </p>
+    <p>
+      Niente orari. Niente pensieri.<br>
+      Solo io e te ❤️
+    </p>
+  </div>
 
-    <div id="reply"></div>
-    <div class="footer">PS: se preferisci un altro giorno, dimmelo e lo facciamo perfetto.</div>
-  </main>
+</div>
 
-  <script>
-    // Personalizzazione via URL: ?name=Giulia
-    const params = new URLSearchParams(location.search);
-    const who = params.get("name");
-    if (who) document.getElementById("name").textContent = who;
+<script>
+  const SECRET = "2412"; // <<< CAMBIA QUI LA SEQUENZA
 
-    const reply = document.getElementById("reply");
+  function showAccess(){
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("access").classList.remove("hidden");
+  }
 
-    document.getElementById("btnYes").onclick = () => {
-      reply.textContent = "Yesss! 💛 Scrivimi: 'Sì' e scelgo io il posto 😄";
-      confetti();
-    };
+  function checkCode(){
+    const input = document.getElementById("code").value;
+    const msg = document.getElementById("msg");
 
-    document.getElementById("btnMaybe").onclick = () => {
-      reply.textContent = "Va benissimo 🙂 Dimmi cosa ti farebbe felice e lo organizziamo insieme.";
-    };
-
-    // mini-confetti senza librerie
-    function confetti(){
-      for(let i=0;i<120;i++){
-        const s=document.createElement('span');
-        s.textContent = Math.random()>.5 ? "✨" : "💛";
-        s.style.position="fixed";
-        s.style.left=(Math.random()*100)+"vw";
-        s.style.top="-10px";
-        s.style.fontSize=(12+Math.random()*22)+"px";
-        s.style.transition="transform 1.6s linear, opacity 1.6s linear";
-        document.body.appendChild(s);
-        requestAnimationFrame(()=> {
-          s.style.transform=`translateY(${110+Math.random()*40}vh) rotate(${Math.random()*360}deg)`;
-          s.style.opacity="0";
-        });
-        setTimeout(()=> s.remove(), 1700);
-      }
+    if(input === SECRET){
+      document.getElementById("access").classList.add("hidden");
+      document.getElementById("surprise").classList.remove("hidden");
+    } else {
+      msg.textContent = "Mmm… riprova 💭 (pensa a noi)";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
+
