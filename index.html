@@ -12,42 +12,56 @@
     display:grid;
     place-items:center;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    background: linear-gradient(135deg,#1d2b64,#f8cdda);
-    color:#fff;
+    background: linear-gradient(135deg,#2ecc71,#f8a5c2);
+    color:#2d3436;
   }
   .card{
     width:min(720px,92vw);
-    background:#00000055;
-    backdrop-filter: blur(12px);
-    border-radius:24px;
-    padding:32px 26px;
+    background:#ffffffcc;
+    backdrop-filter: blur(10px);
+    border-radius:28px;
+    padding:34px 26px;
     text-align:center;
-    box-shadow:0 20px 50px #00000055;
+    box-shadow:0 20px 40px #00000033;
   }
-  h1{font-size:clamp(28px,4vw,40px);}
-  p{font-size:18px; line-height:1.5;}
+  h1{
+    font-size:clamp(26px,4vw,38px);
+    margin-bottom:12px;
+  }
+  p{
+    font-size:18px;
+    line-height:1.55;
+  }
   button{
-    margin-top:18px;
-    padding:12px 22px;
+    margin-top:20px;
+    padding:14px 26px;
     border-radius:999px;
     border:0;
     font-size:16px;
     cursor:pointer;
+    background:#2ecc71;
+    color:#fff;
+    transition:.2s;
   }
-  .primary{background:#fff;color:#111;}
+  button:hover{transform:scale(1.05);}
   .hidden{display:none;}
   input{
-    padding:10px;
-    border-radius:10px;
-    border:0;
+    padding:12px;
+    border-radius:12px;
+    border:2px solid #f8a5c2;
     font-size:18px;
     text-align:center;
-    width:120px;
-    margin-top:10px;
+    width:140px;
+    margin-top:14px;
   }
-  .error{color:#ffd1d1;margin-top:10px;}
+  .error{color:#e17055;margin-top:12px;}
   .success{
     animation: fadeIn 1.2s ease forwards;
+  }
+  .step{
+    font-size:14px;
+    opacity:.6;
+    margin-bottom:10px;
   }
   @keyframes fadeIn{
     from{opacity:0; transform:translateY(20px);}
@@ -59,8 +73,9 @@
 <body>
 <div class="card">
 
-  <!-- INTRO -->
+  <!-- STEP 1 INTRO -->
   <div id="intro">
+    <div class="step">Passo 1 di 3</div>
     <h1>INVITO PER GIULI SABATO - DOMENICA 17-18 GENNAIO 💛</h1>
     <p>
       Ho preparato qualcosa di speciale per noi<br>
@@ -72,16 +87,30 @@
       Dopo le lezioni di sabato passo a prenderti , let me cook.<br>
       FIDATI DI ME 💛
     </p>
-    <button class="primary" onclick="showAccess()">Accedi</button>
+    <button onclick="goStep('intro','hint')">Continua</button>
   </div>
 
-  <!-- ACCESSO -->
+  <!-- STEP 2 HINT -->
+  <div id="hint" class="hidden">
+    <div class="step">Passo 2 di 3</div>
+    <h1>Un piccolo gioco 🌸</h1>
+    <p>
+      Per arrivare alla sorpresa finale<br>
+      devi pensare a <strong>noi</strong>.<br><br>
+      Una data. Un numero.<br>
+      Qualcosa che ci rappresenta 💭
+    </p>
+    <button onclick="goStep('hint','access')">Ci sono</button>
+  </div>
+
+  <!-- STEP 3 ACCESSO -->
   <div id="access" class="hidden">
+    <div class="step">Passo 3 di 3</div>
     <p>Inserisci la sequenza segreta 🔐</p>
     <p>Solo se indovini potrai scoprire dove andremo!</p>
     <input type="password" id="code" placeholder="••••">
     <br>
-    <button class="primary" onclick="checkCode()">Scopri</button>
+    <button onclick="checkCode()">Scopri</button>
     <div id="msg" class="error"></div>
   </div>
 
@@ -108,9 +137,9 @@
 <script>
   const SECRET = "1218"; // <<< CAMBIA QUI LA SEQUENZA
 
-  function showAccess(){
-    document.getElementById("intro").classList.add("hidden");
-    document.getElementById("access").classList.remove("hidden");
+  function goStep(from,to){
+    document.getElementById(from).classList.add("hidden");
+    document.getElementById(to).classList.remove("hidden");
   }
 
   function checkCode(){
@@ -128,4 +157,3 @@
 
 </body>
 </html>
-
