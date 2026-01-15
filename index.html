@@ -1,158 +1,499 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ciao Julia 💛</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invito 💚</title>
+  <style>
+    :root{
+      --bg1:#063a1f;
+      --bg2:#0a4f2a;
+      --card:#0f6b38cc;
+      --card2:#0b5a30cc;
+      --text:#eafff1;
+      --muted:#c8ffe0;
+      --line:#2ee58a55;
+      --btn:#2ee58a;
+      --btn2:#19c56d;
+      --danger:#ffb3b3;
+      --ok:#b7ffd6;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, #0b6b39 0%, transparent 55%),
+                  radial-gradient(900px 600px at 80% 20%, #0f8a49 0%, transparent 50%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{width:min(1100px, 92vw); margin:0 auto;}
+    header{
+      position:sticky; top:0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, #062f1acc, #062f1a66);
+      border-bottom:1px solid var(--line);
+      z-index:10;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.3px;
+    }
+    .dot{
+      width:12px;height:12px;border-radius:999px;
+      background: var(--btn);
+      box-shadow: 0 0 0 6px #2ee58a22, 0 0 24px #2ee58a44;
+    }
+    nav ul{
+      list-style:none; padding:0; margin:0;
+      display:flex; gap:18px; align-items:center;
+      font-weight:600; color:var(--muted);
+    }
+    nav a{opacity:.9}
+    nav a:hover{opacity:1; text-decoration:underline}
+    .pill{
+      padding:10px 14px;
+      border:1px solid var(--line);
+      background:#05301866;
+      border-radius:999px;
+      font-size:14px;
+    }
 
-<style>
-  body{
-    margin:0;
-    min-height:100vh;
-    display:grid;
-    place-items:center;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    background: linear-gradient(135deg,#2ecc71,#f8a5c2);
-    color:#2d3436;
-  }
-  .card{
-    width:min(720px,92vw);
-    background:#ffffffcc;
-    backdrop-filter: blur(10px);
-    border-radius:28px;
-    padding:34px 26px;
-    text-align:center;
-    box-shadow:0 20px 40px #00000033;
-  }
-  h1{
-    font-size:clamp(26px,4vw,38px);
-    margin-bottom:12px;
-  }
-  p{
-    font-size:18px;
-    line-height:1.55;
-  }
-  button{
-    margin-top:20px;
-    padding:14px 26px;
-    border-radius:999px;
-    border:0;
-    font-size:16px;
-    cursor:pointer;
-    background:#2ecc71;
-    color:#fff;
-    transition:.2s;
-  }
-  button:hover{transform:scale(1.05);}
-  .hidden{display:none;}
-  input{
-    padding:12px;
-    border-radius:12px;
-    border:2px solid #f8a5c2;
-    font-size:18px;
-    text-align:center;
-    width:140px;
-    margin-top:14px;
-  }
-  .error{color:#e17055;margin-top:12px;}
-  .success{
-    animation: fadeIn 1.2s ease forwards;
-  }
-  .step{
-    font-size:14px;
-    opacity:.6;
-    margin-bottom:10px;
-  }
-  @keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:none;}
-  }
-</style>
+    /* HERO */
+    .hero{
+      padding:34px 0 26px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .hero{grid-template-columns:1fr}
+    }
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:26px;
+      box-shadow:0 18px 40px #00000055;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size: clamp(26px, 3.6vw, 40px);
+      line-height:1.1;
+    }
+    .lead{
+      margin:0;
+      font-size:18px;
+      line-height:1.6;
+      color:var(--text);
+    }
+    .meta{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:16px;
+      color:var(--muted);
+    }
+    .btnrow{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
+    button{
+      border:0; cursor:pointer;
+      border-radius:999px;
+      padding:12px 18px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .primary{
+      background: linear-gradient(180deg, var(--btn), var(--btn2));
+      color:#033018;
+      box-shadow: 0 10px 22px #00000044;
+    }
+    .ghost{
+      background:#05301866;
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+    button:hover{transform: translateY(-1px);}
+    button:active{transform: translateY(0);}
+
+    .side h2{margin:0 0 10px; font-size:18px; color:var(--muted)}
+    .side p{margin:0; line-height:1.6; color:var(--text)}
+    .divider{height:1px; background:var(--line); margin:16px 0;}
+
+    /* SEZIONI */
+    section{padding:10px 0 34px}
+    .hidden{display:none;}
+    .panel-title{
+      font-size:18px;
+      color:var(--muted);
+      margin:0 0 10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    /* QUIZ */
+    .quizBox{
+      display:grid;
+      gap:14px;
+    }
+    .q{
+      font-size:20px;
+      font-weight:800;
+      margin:0;
+    }
+    .hint{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .answerRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    input{
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#042714aa;
+      color:var(--text);
+      padding:12px 14px;
+      font-size:16px;
+      outline:none;
+      width:min(420px, 100%);
+    }
+    .small{
+      font-size:14px; color:var(--muted);
+    }
+    .msg{
+      margin:0;
+      font-weight:700;
+    }
+    .msg.ok{color:var(--ok)}
+    .msg.bad{color:var(--danger)}
+
+    /* CODICE */
+    .attempts{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .badge{
+      padding:8px 12px;
+      border-radius:999px;
+      background:#042714aa;
+      border:1px solid var(--line);
+      font-size:14px;
+    }
+
+    /* SORPRESA */
+    .surprise h2{
+      margin:0 0 10px;
+      font-size: clamp(22px, 3vw, 30px);
+    }
+    .surprise p{margin:0; line-height:1.65; font-size:18px}
+  </style>
 </head>
-
 <body>
-<div class="card">
 
-  <!-- STEP 1 INTRO -->
-  <div id="intro">
-    <div class="step">Passo 1 di 3</div>
-    <h1>INVITO PER GIULI SABATO - DOMENICA 17-18 GENNAIO 💛</h1>
-    <p>
-      Ho preparato qualcosa di speciale per noi<br>
-      Cosa devi portare oltre te stessa : <br>
-      - Un pigiamino Sexy <br>
-      - Un costumino<br>
-      - Le carte focose diciamo hihihi<br>
-      Al resto penso tutto io 🥰<br>
-      Dopo le lezioni di sabato passo a prenderti , let me cook.<br>
-      FIDATI DI ME 💛
-    </p>
-    <button onclick="goStep('intro','hint')">Continua</button>
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>Invito Segreto</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home" onclick="showView('home')">Home</a></li>
+        <li><a href="#gioco" onclick="startFlow()">Gioco</a></li>
+        <li><span class="pill">💚 Solo per Giuli</span></li>
+      </ul>
+    </nav>
   </div>
+</header>
 
-  <!-- STEP 2 HINT -->
-  <div id="hint" class="hidden">
-    <div class="step">Passo 2 di 3</div>
-    <h1>Un piccolo gioco 🌸</h1>
-    <p>
-      Per arrivare alla sorpresa finale<br>
-      devi pensare a <strong>noi</strong>.<br><br>
-      Una data. Un numero.<br>
-      Qualcosa che ci rappresenta 💭
-    </p>
-    <button onclick="goStep('hint','access')">Ci sono</button>
-  </div>
+<main class="wrap">
 
-  <!-- STEP 3 ACCESSO -->
-  <div id="access" class="hidden">
-    <div class="step">Passo 3 di 3</div>
-    <p>Inserisci la sequenza segreta 🔐</p>
-    <p>Solo se indovini potrai scoprire dove andremo!</p>
-    <input type="password" id="code" placeholder="••••">
-    <br>
-    <button onclick="checkCode()">Scopri</button>
-    <div id="msg" class="error"></div>
-  </div>
+  <!-- HOME / HERO -->
+  <section id="homeView">
+    <div class="hero" id="home">
+
+      <div class="card">
+        <h1>INVITO PER GIULI SABATO - DOMENICA 17-18 GENNAIO 💛</h1>
+        <p class="lead">
+          Ho preparato qualcosa di speciale per noi<br>
+          Cosa devi portare oltre te stessa : <br>
+          - Un pigiamino Sexy <br>
+          - Un costumino<br>
+          - Le carte focose diciamo hihihi<br>
+          Al resto penso tutto io 🥰<br>
+          Dopo le lezioni di sabato passo a prenderti , let me cook.<br>
+          FIDATI DI ME 💛
+        </p>
+
+        <div class="meta">
+          <span class="badge">📅 17-18 Gennaio</span>
+          <span class="badge">🚗 Passo io</span>
+          <span class="badge">🔐 Finale a sorpresa</span>
+        </div>
+
+        <div class="btnrow">
+          <button class="primary" onclick="startFlow()">Scopri di più</button>
+          <button class="ghost" onclick="scrollToId('gioco')">Vai al gioco</button>
+        </div>
+      </div>
+
+      <div class="card side">
+        <h2>Come funziona</h2>
+        <p>
+          Ti faccio fare un mini-percorso 💚<br>
+          1) 3 domande semplici<br>
+          2) Se le indovini, arrivi al codice 🔐<br>
+          3) Hai massimo <strong>20 tentativi</strong> per sbloccare la sorpresa
+        </p>
+        <div class="divider"></div>
+        <p class="small">
+          (Consiglio: rispondi pensando a noi.)
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GIOCO -->
+  <section id="gameView" class="hidden">
+    <div class="card" id="gioco">
+      <div class="panel-title">Mini-gioco 💚 (3 domande)</div>
+
+      <div class="quizBox">
+        <p class="q" id="questionText">Domanda</p>
+        <p class="hint" id="questionHint">Suggerimento</p>
+
+        <div class="answerRow">
+          <input id="answerInput" type="text" placeholder="Scrivi qui..." autocomplete="off" />
+          <button class="primary" onclick="submitAnswer()">Rispondi</button>
+          <button class="ghost" onclick="resetQuiz()">Ricomincia</button>
+        </div>
+
+        <p class="msg" id="quizMsg"></p>
+        <p class="small" id="progressText"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODICE -->
+  <section id="codeView" class="hidden">
+    <div class="card">
+      <div class="panel-title">Ultimo step 🔐</div>
+
+      <p class="q">Inserisci la sequenza segreta</p>
+      <p class="hint">Solo se indovini potrai scoprire dove andremo!</p>
+
+      <div class="attempts">
+        <span class="badge">Tentativi rimasti: <span id="attemptLeft">20</span></span>
+        <span class="badge">Max: 20</span>
+      </div>
+
+      <div class="answerRow" style="margin-top:10px">
+        <input id="codeInput" type="password" placeholder="••••" inputmode="numeric" />
+        <button class="primary" onclick="tryCode()">Scopri</button>
+        <button class="ghost" onclick="backToGame()">Torna al gioco</button>
+      </div>
+
+      <p class="msg" id="codeMsg"></p>
+      <p class="small">Suggerimento: pensa a noi 💭</p>
+    </div>
+  </section>
 
   <!-- SORPRESA -->
-  <div id="surprise" class="hidden success">
-    <h1>✨ È una fuga per noi ✨</h1>
-    <p>
-      Una casa immersa nella natura 🌲<br>
-      solo silenzio, tempo lento e noi due.
-    </p>
-    <p>
-      🫧 <strong>Jacuzzi calda</strong><br>
-      🔥 <strong>Sauna privata</strong><br>
-      🌙 stelle sopra di noi
-    </p>
-    <p>
-      Niente orari. Niente pensieri.<br>
-      Solo io e te ❤️
-    </p>
-  </div>
+  <section id="surpriseView" class="hidden">
+    <div class="card surprise">
+      <h2>✨ È una fuga per noi ✨</h2>
+      <p>
+        Una casa immersa nella natura 🌲<br>
+        solo silenzio, tempo lento e noi due.
+      </p>
+      <div class="divider"></div>
+      <p>
+        🫧 <strong>Jacuzzi calda</strong><br>
+        🔥 <strong>Sauna privata</strong><br>
+        🌙 stelle sopra di noi
+      </p>
+      <div class="divider"></div>
+      <p>
+        Niente orari. Niente pensieri.<br>
+        Solo io e te ❤️
+      </p>
+    </div>
+  </section>
 
-</div>
+</main>
 
 <script>
-  const SECRET = "1218"; // <<< CAMBIA QUI LA SEQUENZA
+  // ====== CONFIG ======
+  const SECRET_CODE = "1218"; // <<< CAMBIA QUI IL CODICE FINALE
+  const MAX_ATTEMPTS = 20;
 
-  function goStep(from,to){
-    document.getElementById(from).classList.add("hidden");
-    document.getElementById(to).classList.remove("hidden");
+  // 3 domande semplici: modifica qui se vuoi (domanda, hint, risposte accettate)
+  const QUIZ = [
+    {
+      q: "Domanda 1: come mi chiami di solito?",
+      hint: "Una parola/nomignolo che usi spesso 💚",
+      answers: ["amore", "amo", "tesoro"]
+    },
+    {
+      q: "Domanda 2: qual è la cosa che dico sempre prima di vederti?",
+      hint: "Pensala come una frase breve 😄",
+      answers: ["sto arrivando", "arrivo"]
+    },
+    {
+      q: "Domanda 3: che giorno è l’invito?",
+      hint: "Guarda la hero in alto 👀",
+      answers: ["17-18 gennaio", "17 18 gennaio", "17-18 gen", "17-18"]
+    }
+  ];
+
+  // ====== STATE ======
+  let qIndex = 0;
+  let attemptsLeft = MAX_ATTEMPTS;
+
+  // ====== HELPERS ======
+  function normalize(s){
+    return (s || "")
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[’']/g, "'"); // uniforma apostrofi
   }
 
-  function checkCode(){
-    const input = document.getElementById("code").value;
-    const msg = document.getElementById("msg");
+  function scrollToId(id){
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  }
 
-    if(input === SECRET){
-      document.getElementById("access").classList.add("hidden");
-      document.getElementById("surprise").classList.remove("hidden");
+  function showView(view){
+    const views = ["homeView","gameView","codeView","surpriseView"];
+    views.forEach(v => document.getElementById(v).classList.add("hidden"));
+    document.getElementById(view).classList.remove("hidden");
+  }
+
+  // ====== FLOW ======
+  function startFlow(){
+    showView("gameView");
+    resetQuiz();
+    scrollToId("gioco");
+  }
+
+  function resetQuiz(){
+    qIndex = 0;
+    setQuestion();
+    setQuizMsg("", "");
+    document.getElementById("answerInput").value = "";
+    document.getElementById("answerInput").focus();
+  }
+
+  function setQuestion(){
+    const item = QUIZ[qIndex];
+    document.getElementById("questionText").textContent = item.q;
+    document.getElementById("questionHint").textContent = item.hint;
+    document.getElementById("progressText").textContent = `Progresso: ${qIndex+1}/3`;
+  }
+
+  function setQuizMsg(text, type){
+    const el = document.getElementById("quizMsg");
+    el.textContent = text;
+    el.className = "msg" + (type ? " " + type : "");
+  }
+
+  function submitAnswer(){
+    const input = normalize(document.getElementById("answerInput").value);
+    const item = QUIZ[qIndex];
+    const ok = item.answers.map(normalize).includes(input);
+
+    if(!input){
+      setQuizMsg("Scrivi una risposta 💭", "bad");
+      return;
+    }
+
+    if(ok){
+      setQuizMsg("Perfetto 💚", "ok");
+      qIndex++;
+      document.getElementById("answerInput").value = "";
+
+      if(qIndex >= QUIZ.length){
+        // sblocca codice
+        attemptsLeft = MAX_ATTEMPTS;
+        document.getElementById("attemptLeft").textContent = attemptsLeft;
+        document.getElementById("codeInput").value = "";
+        document.getElementById("codeMsg").textContent = "";
+        showView("codeView");
+        document.getElementById("codeInput").focus();
+        return;
+      }
+
+      setTimeout(() => {
+        setQuestion();
+        setQuizMsg("", "");
+        document.getElementById("answerInput").focus();
+      }, 500);
+
     } else {
-      msg.textContent = "Mmm… riprova 💭 (pensa a noi)";
+      setQuizMsg("Nooo 😄 riprova… (pensa a noi)", "bad");
+      document.getElementById("answerInput").focus();
+      document.getElementById("answerInput").select();
     }
   }
+
+  function backToGame(){
+    showView("gameView");
+    scrollToId("gioco");
+  }
+
+  // ====== CODE ======
+  function tryCode(){
+    const input = normalize(document.getElementById("codeInput").value);
+    const msg = document.getElementById("codeMsg");
+
+    if(attemptsLeft <= 0){
+      msg.textContent = "Tentativi finiti 😶‍🌫️ Torna al gioco e riprova da capo.";
+      msg.className = "msg bad";
+      return;
+    }
+
+    if(!input){
+      msg.textContent = "Inserisci un codice 💭";
+      msg.className = "msg bad";
+      return;
+    }
+
+    if(input === normalize(SECRET_CODE)){
+      showView("surpriseView");
+      return;
+    }
+
+    attemptsLeft--;
+    document.getElementById("attemptLeft").textContent = attemptsLeft;
+
+    if(attemptsLeft <= 0){
+      msg.textContent = "Ok stop 😄 Tentativi finiti. Torna al gioco e risblocca il codice.";
+      msg.className = "msg bad";
+    } else {
+      msg.textContent = `Codice sbagliato… riprova 💚 (rimasti ${attemptsLeft})`;
+      msg.className = "msg bad";
+    }
+
+    document.getElementById("codeInput").focus();
+    document.getElementById("codeInput").select();
+  }
+
+  // Avvio: resta in home
+  showView("homeView");
 </script>
 
 </body>
